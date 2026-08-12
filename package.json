@@ -1,0 +1,13 @@
+{
+  "name": "booking_backend",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.2.0"
+  },
+  "peerDependencies": {
+    "typescript": "^6"
+  }
+}
