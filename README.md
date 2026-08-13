@@ -1,2 +1,1 @@
 # EventBookingBackend
-s
