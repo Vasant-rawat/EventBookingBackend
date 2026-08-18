@@ -1,4 +1,3 @@
-import { password } from "bun";
 import { integer, jsonb, pgTable, varchar ,timestamp} from "drizzle-orm/pg-core";
 
 export const userTable = pgTable("users", {
