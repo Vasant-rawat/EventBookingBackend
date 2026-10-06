@@ -1,8 +1,6 @@
-import { exit } from "process";
 import * as userRepository from "./user.repository";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { JsonWebTokenError } from "jsonwebtoken";
 import { env } from "../../config/env";
 export async function createUser(data: {
   name: string;

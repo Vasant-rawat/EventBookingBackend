@@ -16,11 +16,12 @@ export const eventSchema = pgTable("events", {
   eventStatus: varchar("event_status", {
     length: 50,
   })
+
     .notNull()
     .default("upcoming"),
   createdBy: integer("created_by")
     .notNull()
     .references(() => userTable.id),
-  createdAt: timestamp("created_at ").defaultNow(),
+  createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
