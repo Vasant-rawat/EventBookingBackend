@@ -2,16 +2,17 @@ import { createEventSchema } from "./events.validation";
 import * as eventService from "./events.service";
 import type { Request, Response } from "express";
 export const createEvent = async (req: Request, res: Response) => {
-  console.log("eventController");
   try {
     const result = createEventSchema.safeParse(req.body);
     if (!result.success) {
-      return res.send({
+      return res.status(404).json({
         message: "Invalid event data",
         error: result.error.issues,
       });
     }
+    console.log("eventController");
     const data = result.data;
+    console.log("eventController",data);
     const event = await eventService.createEvent({
       title: data.title,
       description: data.description,
@@ -21,12 +22,13 @@ export const createEvent = async (req: Request, res: Response) => {
       endTime: data.endTime,
       createdBy: req.user.id,
     });
-    return res.sendStatus(201).json({
+    console.log("Hello",event)
+    return res.status(201).json({
       message: "Event was succesfully created",
       event,
     });
   } catch (e) {
-    return res.sendStatus(404).json({
+    return res.status(404).json({
       message: "Some Error has occured",
       error: e,
     });

@@ -17,7 +17,14 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
         message: "invalid Authorization format",
       });
     }
-    const decoded = jwt.verify(token,env.jwtToken)
+    const decoded = jwt.verify(token, env.jwtToken) as { userId: number };
+    console.log(decoded)
+    if (!decoded.userId) {
+      return res.status(401).json({
+        message: "Unauthorized"
+      });
+    }
+    req.user = { id:decoded.userId }
     next();
   } catch (e) {
     res.status(401).json({
@@ -25,3 +32,4 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
     });
   }
 };
+export default authMiddleware;

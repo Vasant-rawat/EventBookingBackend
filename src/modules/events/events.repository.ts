@@ -9,8 +9,9 @@ export async function createEvent(data: {
   totalSeats: number,
 createdBy:number
 }) {
-  console.log("Repository")
-    const [event] = await db.insert(eventSchema).values(
+  console.log("Repositor");
+  try {
+    const [event ] = await db.insert(eventSchema).values(
        {
          title: data.title,
          description:data.description,
@@ -21,5 +22,7 @@ createdBy:number
         createdBy: data.createdBy
         }
      ).returning();
-    return event;
+  } catch (e) {
+    return e;
+  }
 }
