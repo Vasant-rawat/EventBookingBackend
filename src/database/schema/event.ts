@@ -24,4 +24,5 @@ export const eventSchema = pgTable("events", {
     .references(() => userTable.id),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
+  eventId:
 });

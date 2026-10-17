@@ -21,7 +21,8 @@ createdBy:number
         totalSeats: data.totalSeats,
         createdBy: data.createdBy
         }
-     ).returning();
+    ).returning();
+    return event
   } catch (e) {
     return e;
   }

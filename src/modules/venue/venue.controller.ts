@@ -1,7 +1,7 @@
 import { createVenues } from "./venue.service";
 import { createVenueSchema } from "./venue.validation";
 import type { Response, Request } from "express";
-export async function addVenue(req: Request, res:Response) {
+export async function addVenue(req: Request, res: Response) {
   try {
     const result = createVenueSchema.safeParse(req.body);
 
@@ -17,7 +17,14 @@ export async function addVenue(req: Request, res:Response) {
       location: data.location,
       totalNumberOfSeats: data.totalNumberSeats,
     });
+    res.status(201).json({
+      message: "Venue created successfully",
+      data: venue,
+    });
   } catch (e) {
-    res.status(201).json({});
+    res.status(400).json({
+      message: "There was some Error while Creating a Venue.",
+      error: e,
+    });
   }
 }
