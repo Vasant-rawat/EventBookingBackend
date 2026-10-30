@@ -1,8 +1,9 @@
 import { integer, pgTable } from "drizzle-orm/pg-core";
 import { bookingSchema } from "./booking";
+import { seatSchema } from "./seats";
 
-const ticketSchema = pgTable("ticket", {
+export const ticketSchema = pgTable("ticket", {
   ticketId: integer().primaryKey().notNull().generatedByDefaultAsIdentity(),
   bookingId: integer().references(() => bookingSchema.bookingId),
-  seatId:integer().references(()=>)
+  seatId:integer().references(()=>seatSchema.seatId)
 })
