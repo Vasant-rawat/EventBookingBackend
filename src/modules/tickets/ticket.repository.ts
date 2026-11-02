@@ -14,13 +14,16 @@ export function createTicket(data: { bookingId: number; seatIds: number[] }) {
   return db.insert(ticketSchema).values(rows).returning();
 }
 
-
-export async function getTicketByBookingId(bookingId: number, userId: number) {
-  db.select({
-    ticketId: ticketSchema.ticketId,
-    bookingId: ticketSchema.bookingId,
-    seatId: ticketSchema.seatId,
-  })
+export async function getTicketByBookingId(data: {
+  bookingId: number;
+  userId: number;
+}) {
+  return db
+    .select({
+      ticketId: ticketSchema.ticketId,
+      bookingId: ticketSchema.bookingId,
+      seatId: ticketSchema.seatId,
+    })
     .from(ticketSchema)
     .innerJoin(
       bookingSchema,
@@ -28,22 +31,25 @@ export async function getTicketByBookingId(bookingId: number, userId: number) {
     )
     .where(
       and(
-        eq(ticketSchema.bookingId, bookingId),
-        eq(bookingSchema.userId, userId),
+        eq(ticketSchema.bookingId,data. bookingId),
+        eq(bookingSchema.userId, data.userId),
       ),
     );
 }
 
 export async function getUserTickets(userId: number) {
-  db.select({
-    ticketId: ticketSchema.ticketId,
-    bookingId: ticketSchema.bookingId,
-    seatId: ticketSchema.seatId,
-  })
+  const [tickets] = await db
+    .select({
+      ticketId: ticketSchema.ticketId,
+      bookingId: ticketSchema.bookingId,
+      seatId: ticketSchema.seatId,
+    })
     .from(ticketSchema)
     .innerJoin(
       bookingSchema,
       eq(ticketSchema.bookingId, bookingSchema.bookingId),
     )
     .where(eq(bookingSchema.userId, userId));
+
+  return tickets ?? null;
 }
